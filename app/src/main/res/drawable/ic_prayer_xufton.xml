@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Xufton (Isha / night): crescent moon + stars -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd"
+        android:pathData="M11,5 a7,7 0 1 0 0,14 a7,7 0 1 0 0,-14 z
+                          M14.5,4 a6,6 0 1 0 0,12 a6,6 0 1 0 0,-12 z" />
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M18.5,14.7 l0.52,0.78 0.78,0.52 -0.78,0.52 -0.52,0.78 -0.52,-0.78 -0.78,-0.52 0.78,-0.52 z" />
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M19.6,7.4 l0.44,0.66 0.66,0.44 -0.66,0.44 -0.44,0.66 -0.44,-0.66 -0.66,-0.44 0.66,-0.44 z" />
+</vector>

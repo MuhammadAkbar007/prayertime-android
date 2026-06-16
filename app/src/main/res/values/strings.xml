@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Namoz Vaqti</string>
+    <string name="city">Namangan</string>
+    <string name="next_prayer">NEXT PRAYER</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_month">Month</string>
+    <string name="offline">Offline</string>
+    <string name="reliability_title">For reliable notifications</string>
+    <string name="reliability_msg">Samsung devices may put the app to sleep. To make sure prayer times arrive on time, exclude the app from battery optimization.\n\nAlso: Settings → Battery → remove this app from the \"Sleeping apps\" list.</string>
+    <string name="reliability_ok">Allow</string>
+    <string name="reliability_later">Later</string>
+    <string name="load_error">Couldn\'t load data. Check your connection.</string>
+</resources>
