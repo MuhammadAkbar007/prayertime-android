@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 /** Mirror of the Python transform.py: attach epoch timestamps to each time. */
 object Transform {

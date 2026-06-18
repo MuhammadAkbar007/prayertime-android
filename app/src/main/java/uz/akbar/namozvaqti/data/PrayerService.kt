@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 import java.util.Calendar
 
@@ -14,6 +14,21 @@ class PrayerService(private val cache: Cache) {
         // Sunrise is an informational row; included so the countdown also stops
         // on it.
         val PRAYER_ORDER = listOf("fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha")
+
+        /**
+         * The currently-active prayer: the most recent one that has already begun.
+         * Highlight this (not the next one) so the highlight never disappears —
+         * after Isha and overnight (before the first prayer) Isha stays active.
+         */
+        fun currentPrayerKey(day: Day, nowSec: Long): String? {
+            var current: String? = null
+            for (name in PRAYER_ORDER) {
+                val p = day[name] ?: continue
+                if (p.timestamp <= nowSec) current = name
+            }
+            // Before today's first prayer: last night's Isha is still active.
+            return current ?: PRAYER_ORDER.lastOrNull { day[it] != null }
+        }
     }
 
     data class Next(val name: String, val prayer: Prayer, val stale: Boolean)

@@ -1,11 +1,11 @@
-package ai.wakil.namozvaqti.alarm
+package uz.akbar.namozvaqti.alarm
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import ai.wakil.namozvaqti.data.Labels
-import ai.wakil.namozvaqti.notify.Notifier
-import ai.wakil.namozvaqti.widget.PrayerWidget
+import uz.akbar.namozvaqti.data.Labels
+import uz.akbar.namozvaqti.notify.Notifier
+import uz.akbar.namozvaqti.widget.PrayerWidget
 
 /** Fires at a prayer time: show the notification, then arm the next prayer. */
 class PrayerAlarmReceiver : BroadcastReceiver() {

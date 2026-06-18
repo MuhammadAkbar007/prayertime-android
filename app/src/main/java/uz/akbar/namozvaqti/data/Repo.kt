@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 import android.content.Context
 import android.os.Handler

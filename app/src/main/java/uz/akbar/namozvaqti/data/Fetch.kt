@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 import org.json.JSONArray
 import org.json.JSONObject

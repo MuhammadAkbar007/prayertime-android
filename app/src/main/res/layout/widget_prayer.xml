@@ -23,14 +23,14 @@
             android:layout_weight="1"
             android:text="@string/city"
             android:textColor="@color/text_primary"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvWDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <!-- Divider (ImageView is an allowed widget view; plain View is not) -->
@@ -38,44 +38,104 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:background="#22FFFFFF"
         android:importantForAccessibility="no" />
 
-    <!-- Prayer rows (wrap to text height; next one highlighted) -->
-    <LinearLayout android:id="@+id/row0" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic0" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm0" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
-    </LinearLayout>
+    <!-- Body: today's prayer times (left) + countdown ring (right) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <LinearLayout android:id="@+id/row1" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic1" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
-    </LinearLayout>
+        <!-- Left: today's prayer times (only as wide as its content) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <LinearLayout android:id="@+id/row2" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic2" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
-    </LinearLayout>
+            <LinearLayout android:id="@+id/row0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic0" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm0" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
 
-    <LinearLayout android:id="@+id/row3" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic3" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
-    </LinearLayout>
+            <LinearLayout android:id="@+id/row1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic1" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm1" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
 
-    <LinearLayout android:id="@+id/row4" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic4" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
-    </LinearLayout>
+            <LinearLayout android:id="@+id/row2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic2" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm2" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
 
-    <LinearLayout android:id="@+id/row5" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
-        <ImageView android:id="@+id/ic5" android:layout_width="22dp" android:layout_height="22dp" android:layout_marginEnd="12dp" android:importantForAccessibility="no" />
-        <TextView android:id="@+id/nm5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/text_primary" android:textSize="23sp" />
-        <TextView android:id="@+id/tm5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="23sp" />
+            <LinearLayout android:id="@+id/row3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic3" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm3" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/row4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic4" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm4" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/row5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingLeft="6dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp">
+                <ImageView android:id="@+id/ic5" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginEnd="8dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/nm5" android:layout_width="96dp" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:textSize="22sp" />
+                <TextView android:id="@+id/tm5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="22sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Right: circular countdown ring (fills the space left of it) -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp">
+
+            <ImageView
+                android:id="@+id/ring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nmNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tmNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <Chronometer
+                    android:id="@+id/chrono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/accent"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

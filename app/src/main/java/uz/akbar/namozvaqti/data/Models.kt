@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 /** One prayer: display time string + its epoch-second timestamp (Tashkent clock). */
 data class Prayer(val time: String, val timestamp: Long)

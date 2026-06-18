@@ -133,21 +133,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Today's prayers -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvToday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never" />
-
-        <!-- Hero: next prayer + live countdown (bottom of the Bugun view) -->
+        <!-- Hero: next prayer + live countdown (top of the Today view) -->
         <LinearLayout
             android:id="@+id/hero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:background="@drawable/glass_hero"
             android:orientation="vertical"
             android:padding="22dp">
@@ -207,6 +198,15 @@
                 android:textColor="@color/text_primary"
                 android:textSize="40sp" />
         </LinearLayout>
+
+        <!-- Today's prayers -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
 
         <!-- Whole month -->
         <androidx.recyclerview.widget.RecyclerView

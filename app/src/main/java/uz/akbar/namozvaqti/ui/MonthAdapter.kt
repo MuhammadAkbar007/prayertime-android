@@ -1,13 +1,13 @@
-package ai.wakil.namozvaqti.ui
+package uz.akbar.namozvaqti.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import ai.wakil.namozvaqti.R
-import ai.wakil.namozvaqti.databinding.ItemMonthCellBinding
-import ai.wakil.namozvaqti.databinding.ItemMonthDayBinding
+import uz.akbar.namozvaqti.R
+import uz.akbar.namozvaqti.databinding.ItemMonthCellBinding
+import uz.akbar.namozvaqti.databinding.ItemMonthDayBinding
 
 class MonthAdapter : RecyclerView.Adapter<MonthAdapter.VH>() {
 

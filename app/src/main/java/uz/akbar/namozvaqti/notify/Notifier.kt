@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.notify
+package uz.akbar.namozvaqti.notify
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,8 +11,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import ai.wakil.namozvaqti.R
-import ai.wakil.namozvaqti.ui.MainActivity
+import uz.akbar.namozvaqti.R
+import uz.akbar.namozvaqti.ui.MainActivity
 
 /** Mirror of the Python notify.py: a notification + the bundled sound per prayer. */
 object Notifier {

@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.ui
+package uz.akbar.namozvaqti.ui
 
 import android.Manifest
 import android.content.Intent
@@ -15,17 +15,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import ai.wakil.namozvaqti.R
-import ai.wakil.namozvaqti.alarm.PrayerScheduler
-import ai.wakil.namozvaqti.data.DateFmt
-import ai.wakil.namozvaqti.data.Labels
-import ai.wakil.namozvaqti.data.PrayerService
-import ai.wakil.namozvaqti.data.Repo
-import ai.wakil.namozvaqti.data.TimeUtils
-import ai.wakil.namozvaqti.databinding.ActivityMainBinding
-import ai.wakil.namozvaqti.PrayerIcons
-import ai.wakil.namozvaqti.notify.Notifier
-import ai.wakil.namozvaqti.widget.PrayerWidget
+import uz.akbar.namozvaqti.R
+import uz.akbar.namozvaqti.alarm.PrayerScheduler
+import uz.akbar.namozvaqti.data.DateFmt
+import uz.akbar.namozvaqti.data.Labels
+import uz.akbar.namozvaqti.data.PrayerService
+import uz.akbar.namozvaqti.data.Repo
+import uz.akbar.namozvaqti.data.TimeUtils
+import uz.akbar.namozvaqti.databinding.ActivityMainBinding
+import uz.akbar.namozvaqti.PrayerIcons
+import uz.akbar.namozvaqti.notify.Notifier
+import uz.akbar.namozvaqti.widget.PrayerWidget
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -92,10 +92,10 @@ class MainActivity : AppCompatActivity() {
                 b.tvStale.visibility = if (stale) View.VISIBLE else View.GONE
 
                 val now = TimeUtils.nowSeconds()
-                val nextKey = pickNextKey(day, now)
+                val currentKey = PrayerService.currentPrayerKey(day, now)
                 val rows = PrayerService.PRAYER_ORDER.mapNotNull { key ->
                     day[key]?.let {
-                        TodayAdapter.Row(Labels.display(key), it.time, key == nextKey, iconFor(key))
+                        TodayAdapter.Row(Labels.display(key), it.time, key == currentKey, iconFor(key))
                     }
                 }
                 todayAdapter.submit(rows)
@@ -135,15 +135,6 @@ class MainActivity : AppCompatActivity() {
             },
             err = { },
         )
-    }
-
-    /** Same selection rule as the day list highlight (first prayer still ahead). */
-    private fun pickNextKey(day: ai.wakil.namozvaqti.data.Day, now: Long): String? {
-        for (key in PrayerService.PRAYER_ORDER) {
-            val p = day[key]
-            if (p != null && p.timestamp > now) return key
-        }
-        return null // after Isha: nothing left today to highlight
     }
 
     private fun updateCountdown() {

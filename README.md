@@ -6,10 +6,12 @@ the [`namozvaqti`](../namozvaqti) Linux service and reuses the **exact same** Al
 tuning and offline/stale logic.
 
 * 📅 Monthly fetch from the Aladhan API (one call covers the whole month)
-* 🕑 Today view (live countdown) + full-month view
+* 🕑 Today view — live countdown card on top + the day's prayers below (current prayer highlighted)
+* 🗓️ Full-month view, auto-centered on today
+* 🧩 Home-screen widget: today's times + a circular countdown ring for the next prayer
 * 🔔 Exact, battery-friendly notifications at each prayer (no polling, no foreground service)
 * 💾 Offline-first: one successful fetch runs the rest of the month
-* 🌙 Faux-glass dark UI (Uzbek labels: Bomdod, Quyosh, Ishroq, Peshin, Asr, Shom, Xufton)
+* 🌙 Faux-glass dark UI with English labels (Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha) and a golden accent
 
 ---
 
@@ -25,7 +27,8 @@ tuning and offline/stale logic.
 | `timezonestring` | `Asia/Tashkent`     |
 | `tune`           | `0,0,0,0,0,4,0,0,0` |
 
-**Ishroq** = Sunrise + 20 min. **Tahajjud** omitted (no reliable Aladhan equivalent).
+Prayers shown: **Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha**. Sunrise is kept as an
+informational row. **Tahajjud / Ishraq** omitted (no reliable Aladhan equivalent).
 
 ### Stale / offline behavior — ported 1:1 from `service.py`
 
@@ -33,7 +36,7 @@ tuning and offline/stale logic.
 * New month + offline → falls back to the **most recent cached day**, re-stamped onto
   today's clock (`getNextPrayerResilient` ↔ Python `get_next_prayer_resilient`,
   `rebuildForDate` ↔ `rebuild_for_date`, `loadLatestBefore` ↔ `load_latest_before`).
-  The "Oflayn" chip appears while running on stale data.
+  The "Offline" chip appears while running on stale data.
 * Reconnected → next launch re-fetches the month and the chip clears.
 
 ---
@@ -58,17 +61,40 @@ scheduler that "sleeps until the next prayer." `BootReceiver` re-arms after a re
 
 ---
 
+## 🧩 Home-screen widget
+
+A resizable, semi-transparent glass widget (`PrayerWidget`, an `AppWidgetProvider`):
+
+* **Left** — today's six prayer times with icons; the **current** prayer (the most
+  recent one that has begun) is highlighted in gold and stays lit until the next one.
+* **Right** — a **circular countdown ring** for the next prayer: its name, time, and a
+  live countdown. The ring arc fills to show how far you are between the previous and
+  next prayer.
+
+It reads from the same per-day cache as the app (fetching off the main thread if a day
+is missing). The countdown is a native `Chronometer` in count-down mode
+(`setChronometerCountDown`, API 24+), so it **ticks live without waking the widget every
+second**; it re-bases on each refresh — app open, the ~30-min update period, and at every
+prayer alarm (`PrayerAlarmReceiver` calls `PrayerWidget.updateAll`). The progress ring is
+drawn to a `Bitmap` and pushed via `setImageViewBitmap`, since `RemoteViews` can't host a
+custom canvas view.
+
+> After installing, add it from your launcher's widget picker. If you rebuild with a
+> changed `applicationId`, re-add the widget once (the old instance is bound to the old
+> package).
+
+---
+
 ## ⚙️ Build requirements
 
-This machine has a JDK but **no Android SDK / Gradle / Android Studio** yet. Easiest path:
+You need a JDK 17–21 and the Android SDK (API 24 + build tools). Two ways:
 
-1. Install **Android Studio** (it bundles a compatible JDK — JBR 17/21).
-2. `File → Open` this `namozvaqti-android/` folder. On first sync Android Studio will:
-   * download the Android SDK (API 24 + build tools),
-   * generate `gradle/wrapper/gradle-wrapper.jar` (not committed here),
-   * create `local.properties` with your `sdk.dir`.
-3. **Set the Gradle JDK to Studio's bundled JBR** (Settings → Build → Gradle), *not*
-   your system JDK 25 — AGP 8.5 expects JDK 17–21.
+* **Android Studio** — `File → Open` this `namozvaqti-android/` folder; first sync
+  downloads the SDK and writes `local.properties`. Set the Gradle JDK to Studio's
+  bundled **JBR** (Settings → Build → Gradle) — AGP 8.5 expects JDK 17–21, not a newer one.
+* **CLI** — point `JAVA_HOME` at a JDK 17–21 (e.g. Android Studio's bundled JBR) and run
+  the Gradle wrapper directly; the SDK path comes from `local.properties` (`~/Android/Sdk`).
+  The wrapper jar is committed, so no Studio is required to build.
 
 > Versions pinned: AGP 8.5.2, Gradle 8.7, Kotlin 1.9.24, `minSdk 24`, `targetSdk 34`.
 > Time logic uses `java.util.Calendar` anchored to `Asia/Tashkent` (no `java.time`,
@@ -108,14 +134,17 @@ Without this, the scheduled notifications may not fire on time.
 ## 📁 Structure
 
 ```
-app/src/main/java/ai/wakil/namozvaqti/
+app/src/main/java/uz/akbar/namozvaqti/   (applicationId: uz.akbar.namozvaqti)
 ├── data/        Fetch · Parse · Transform · Cache · TimeUtils · PrayerService (stale logic) · Repo · Labels · DateFmt
 ├── alarm/       PrayerScheduler · PrayerAlarmReceiver · BootReceiver
 ├── notify/      Notifier (channel + bundled sound)
+├── widget/      PrayerWidget (AppWidgetProvider + countdown-ring rendering)
+├── PrayerIcons  per-prayer vector icon mapping (shared by app + widget)
 └── ui/          MainActivity · TodayAdapter · MonthAdapter
 app/src/main/res/
-├── layout/      activity_main · item_prayer · item_month_day · item_month_cell
-├── drawable/    bg_gradient · glass_card · glass_row · glass_hero · tabs · ic_stat_prayer
+├── layout/      activity_main · item_prayer · item_month_day · item_month_cell · widget_prayer
+├── drawable/    bg_gradient · glass_card · glass_row · glass_hero · tabs · ic_stat_prayer · ic_prayer_* · widget_bg · widget_row_next
+├── xml/         prayer_widget_info (widget metadata)
 └── raw/         prayer_notification.wav
 ```
 

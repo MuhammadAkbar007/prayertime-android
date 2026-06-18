@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "ai.wakil.namozvaqti"
+    namespace = "uz.akbar.namozvaqti"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ai.wakil.namozvaqti"
+        applicationId = "uz.akbar.namozvaqti"
         minSdk = 24          // Android 7.0 Nougat — the Samsung A3 (2016)
         targetSdk = 34
         versionCode = 1

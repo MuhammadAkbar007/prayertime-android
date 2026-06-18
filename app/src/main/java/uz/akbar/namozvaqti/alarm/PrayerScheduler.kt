@@ -1,12 +1,12 @@
-package ai.wakil.namozvaqti.alarm
+package uz.akbar.namozvaqti.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import ai.wakil.namozvaqti.data.Cache
-import ai.wakil.namozvaqti.data.PrayerService
+import uz.akbar.namozvaqti.data.Cache
+import uz.akbar.namozvaqti.data.PrayerService
 
 /**
  * Event-driven scheduling — the Android equivalent of the Python scheduler that

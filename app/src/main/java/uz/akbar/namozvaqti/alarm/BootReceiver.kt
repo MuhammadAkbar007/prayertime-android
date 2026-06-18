@@ -1,9 +1,9 @@
-package ai.wakil.namozvaqti.alarm
+package uz.akbar.namozvaqti.alarm
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import ai.wakil.namozvaqti.widget.PrayerWidget
+import uz.akbar.namozvaqti.widget.PrayerWidget
 
 /** Alarms don't survive a reboot, so re-arm the next prayer after boot. */
 class BootReceiver : BroadcastReceiver() {

@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti.data
+package uz.akbar.namozvaqti.data
 
 /** English display names for the internal prayer keys (Aladhan naming). */
 object Labels {

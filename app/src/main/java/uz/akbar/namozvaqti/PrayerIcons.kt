@@ -1,4 +1,4 @@
-package ai.wakil.namozvaqti
+package uz.akbar.namozvaqti
 
 /** Maps an internal prayer key (english) to its vector icon. */
 object PrayerIcons {

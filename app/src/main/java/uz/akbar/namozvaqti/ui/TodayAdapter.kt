@@ -1,11 +1,11 @@
-package ai.wakil.namozvaqti.ui
+package uz.akbar.namozvaqti.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import ai.wakil.namozvaqti.R
-import ai.wakil.namozvaqti.databinding.ItemPrayerBinding
+import uz.akbar.namozvaqti.R
+import uz.akbar.namozvaqti.databinding.ItemPrayerBinding
 
 class TodayAdapter : RecyclerView.Adapter<TodayAdapter.VH>() {
 
