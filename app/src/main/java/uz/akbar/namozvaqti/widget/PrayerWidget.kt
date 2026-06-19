@@ -109,10 +109,12 @@ class PrayerWidget : AppWidgetProvider() {
                     .maxByOrNull { it.timestamp }
                 val prevTs = passed?.timestamp ?: (day["isha"]!!.timestamp - 86400)
                 val span = (nextPrayer.timestamp - prevTs).coerceAtLeast(1)
-                val progress = ((now - prevTs).toFloat() / span).coerceIn(0f, 1f)
+                // Fraction of the interval still REMAINING until the next prayer.
+                // The ring starts full and depletes as the prayer approaches.
+                val remaining = ((nextPrayer.timestamp - now).toFloat() / span).coerceIn(0f, 1f)
 
                 val sizePx = (170 * context.resources.displayMetrics.density).toInt()
-                views.setImageViewBitmap(R.id.ring, ringBitmap(sizePx, progress, gold))
+                views.setImageViewBitmap(R.id.ring, ringBitmap(sizePx, remaining, gold))
 
                 views.setTextViewText(R.id.nmNext, Labels.display(nextKey))
                 views.setTextViewText(R.id.tmNext, nextPrayer.time)
@@ -128,8 +130,13 @@ class PrayerWidget : AppWidgetProvider() {
             return views
         }
 
-        /** A circular progress ring: faint full track + gold arc from the top. */
-        private fun ringBitmap(size: Int, progress: Float, ringColor: Int): Bitmap {
+        /**
+         * A circular countdown ring: faint full track + a gold arc whose length is
+         * the fraction of time still REMAINING until the next prayer. It starts as a
+         * full gold circle right after a prayer and depletes (clockwise from the top)
+         * as the next prayer nears, so the visible gold = how much time is left.
+         */
+        private fun ringBitmap(size: Int, remaining: Float, ringColor: Int): Bitmap {
             val bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bmp)
             val stroke = size * 0.08f
@@ -144,7 +151,7 @@ class PrayerWidget : AppWidgetProvider() {
             paint.color = Color.parseColor("#33FFFFFF")
             canvas.drawArc(rect, 0f, 360f, false, paint)
             paint.color = ringColor
-            canvas.drawArc(rect, -90f, 360f * progress, false, paint)
+            canvas.drawArc(rect, -90f, 360f * remaining, false, paint)
             return bmp
         }
     }

@@ -68,8 +68,8 @@ A resizable, semi-transparent glass widget (`PrayerWidget`, an `AppWidgetProvide
 * **Left** — today's six prayer times with icons; the **current** prayer (the most
   recent one that has begun) is highlighted in gold and stays lit until the next one.
 * **Right** — a **circular countdown ring** for the next prayer: its name, time, and a
-  live countdown. The ring arc fills to show how far you are between the previous and
-  next prayer.
+  live countdown. The gold arc starts as a full circle right after a prayer and
+  **depletes** as the next prayer nears, so the gold still showing = the time left.
 
 It reads from the same per-day cache as the app (fetching off the main thread if a day
 is missing). The countdown is a native `Chronometer` in count-down mode
