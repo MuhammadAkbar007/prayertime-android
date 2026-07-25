@@ -23,6 +23,9 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             try {
                 PrayerScheduler.scheduleNext(app)
                 PrayerWidget.updateAll(app)
+            } catch (t: Throwable) {
+                // A throw on a bare Thread kills the process, which would leave
+                // the widget's countdown ticking on past zero.
             } finally {
                 pending.finish()
             }

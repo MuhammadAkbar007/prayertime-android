@@ -55,8 +55,11 @@ class PrayerService(private val cache: Cache) {
             val p = day[name]
             if (p != null && p.timestamp > nowSec) return name to p
         }
-        // After Isha -> tomorrow's Fajr, approximated as today's Fajr + 24h.
-        val fajr = day["fajr"]!!
+        // After Isha -> tomorrow's Fajr. One fetch caches the whole month, so the
+        // real one is normally right there; today's Fajr + 24h is only the last
+        // resort (end of an un-fetched month), and it drifts by a minute or two.
+        cache.loadDay(TimeUtils.tomorrowKey())?.get("fajr")?.let { return "fajr" to it }
+        val fajr = day["fajr"] ?: day.values.lastOrNull() ?: Prayer("--:--", nowSec)
         return "fajr" to Prayer(fajr.time, fajr.timestamp + 86400)
     }
 

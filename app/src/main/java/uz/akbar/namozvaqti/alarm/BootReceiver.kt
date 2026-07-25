@@ -5,17 +5,21 @@ import android.content.Context
 import android.content.Intent
 import uz.akbar.namozvaqti.widget.PrayerWidget
 
-/** Alarms don't survive a reboot, so re-arm the next prayer after boot. */
+/**
+ * Re-arm the next prayer whenever the timeline underneath it moved: alarms don't
+ * survive a reboot, and an alarm/countdown armed against a wrong clock (this
+ * phone's RTC can boot skewed and get corrected later) is wrong until re-armed.
+ */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
-
         val pending = goAsync()
         val app = context.applicationContext
         Thread {
             try {
                 PrayerScheduler.scheduleNext(app)
                 PrayerWidget.updateAll(app)
+            } catch (t: Throwable) {
+                // never crash the process from a bare Thread
             } finally {
                 pending.finish()
             }

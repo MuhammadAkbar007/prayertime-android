@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/widget_bg"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
@@ -42,10 +42,13 @@
         android:background="#22FFFFFF"
         android:importantForAccessibility="no" />
 
-    <!-- Body: today's prayer times (left) + countdown ring (right) -->
+    <!-- Body: today's prayer times (left) + countdown ring (right).
+         weight=1 so the row claims all the height left under the header — that
+         height is what caps the ring's diameter. -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -93,13 +96,16 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Right: circular countdown ring (fills the space left of it) -->
+        <!-- Right: circular countdown ring. Takes every pixel the times table
+             doesn't need (weight=1) and the full height of the row
+             (match_parent = as tall as that table), so it is as big as it can
+             get without shrinking anything on the left. -->
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="170dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp">
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp">
 
             <ImageView
                 android:id="@+id/ring"
@@ -119,22 +125,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/accent"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
+
+                <!-- Countdown in the middle, the prayer's clock time beneath it -->
+                <Chronometer
+                    android:id="@+id/chrono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/text_primary"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tmNext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
-
-                <Chronometer
-                    android:id="@+id/chrono"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/accent"
-                    android:textSize="17sp" />
+                    android:textSize="26sp" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
